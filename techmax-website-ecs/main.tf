@@ -75,5 +75,17 @@ module "auto_scaling_group" {
   ecs_service_name = module.ecs.ecs_service_name
 }
 
+module "route-53" {
+  source = "../modules/route-53"
+  domain_name = module.acm.domain_name
+  record_name = var.record_name
+  application_load_balancer_dns_name = module.application_load_balancer.application_load_balancer_dns_name
+  application_load_balancer_zone_id = module.application_load_balancer.application_load_balancer_zone_id
+}
+
+output "website_url" {
+  value = join("",["https://", var.record_name, ".", var.domain_name])
+}
+
 
 
