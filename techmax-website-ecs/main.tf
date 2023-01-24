@@ -69,5 +69,11 @@ module "ecs" {
   alb_target_group_arn = module.application_load_balancer.alb_target_group_arn
 }
 
+module "auto_scaling_group" {
+  source = "../modules/asg"
+  ecs_cluster_name = module.ecs.ecs_cluster_name
+  ecs_service_name = module.ecs.ecs_service_name
+}
+
 
 
